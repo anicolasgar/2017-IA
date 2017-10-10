@@ -132,9 +132,6 @@ public class IndividuoAcertijo extends Individuo {
 
 
         return regla1 + regla2 + regla3 + regla4 + regla5 + regla6 + regla7 + regla8;
-
-        // si no es 742.15 no me sirve, arreglo el resultado para que sea menos apto
-//        return this.getMonto() != 742.15 ? 999999 : cantMonedas;
     }
 
     @Override
@@ -151,16 +148,8 @@ public class IndividuoAcertijo extends Individuo {
         int randomCiudad;
         int randomProfesion;
 
-        ArrayList<Integer> ciudadesDisponibles = new ArrayList();
-        ciudadesDisponibles.add(1);
-        ciudadesDisponibles.add(2);
-        ciudadesDisponibles.add(3);
-        ciudadesDisponibles.add(4);
-        ArrayList<Integer> profesionesDisponibles = new ArrayList();
-        profesionesDisponibles.add(1);
-        profesionesDisponibles.add(2);
-        profesionesDisponibles.add(3);
-        profesionesDisponibles.add(4);
+        ArrayList<Integer> ciudadesDisponibles = inicializoCiudadesDisponibles();
+        ArrayList<Integer> profesionesDisponibles = inicializoProfesionesDisponibles();
 
         // Luz
         randomCiudad = ThreadLocalRandom.current().nextInt(min, max + 1);
@@ -168,61 +157,26 @@ public class IndividuoAcertijo extends Individuo {
         ia.setLC(randomCiudad);
         ia.setLP(randomProfesion);
 
-        ciudadesDisponibles.remove(new Integer(randomCiudad));
-        profesionesDisponibles.remove(new Integer(randomProfesion));
-
         // Katty
-        randomCiudad = ThreadLocalRandom.current().nextInt(min, max + 1);
-        randomProfesion = ThreadLocalRandom.current().nextInt(min, max + 1);
-
-        if (!ciudadesDisponibles.contains(randomCiudad)) {
-            randomCiudad = ciudadesDisponibles.stream().findFirst().get();
-        }
-        if (!profesionesDisponibles.contains(randomProfesion)) {
-            randomProfesion = profesionesDisponibles.stream().findFirst().get();
-        }
+        randomCiudad = getElementoNoRepetido(ciudadesDisponibles, ThreadLocalRandom.current().nextInt(min, max + 1));
+        randomProfesion = getElementoNoRepetido(profesionesDisponibles, ThreadLocalRandom.current().nextInt(min, max + 1));
 
         ia.setKC(randomCiudad);
         ia.setKP(randomProfesion);
 
-        ciudadesDisponibles.remove(new Integer(randomCiudad));
-        profesionesDisponibles.remove(new Integer(randomProfesion));
-
         // Nora
-        randomCiudad = ThreadLocalRandom.current().nextInt(min, max + 1);
-        randomProfesion = ThreadLocalRandom.current().nextInt(min, max + 1);
-
-        if (!ciudadesDisponibles.contains(randomCiudad)) {
-            randomCiudad = ciudadesDisponibles.stream().findFirst().get();
-        }
-        if (!profesionesDisponibles.contains(randomProfesion)) {
-            randomProfesion = profesionesDisponibles.stream().findFirst().get();
-        }
+        randomCiudad = getElementoNoRepetido(ciudadesDisponibles, ThreadLocalRandom.current().nextInt(min, max + 1));
+        randomProfesion = getElementoNoRepetido(profesionesDisponibles, ThreadLocalRandom.current().nextInt(min, max + 1));
 
         ia.setNC(randomCiudad);
         ia.setNP(randomProfesion);
 
-        ciudadesDisponibles.remove(new Integer(randomCiudad));
-        profesionesDisponibles.remove(new Integer(randomProfesion));
-
         // Ruth
-        randomCiudad = ThreadLocalRandom.current().nextInt(min, max + 1);
-        randomProfesion = ThreadLocalRandom.current().nextInt(min, max + 1);
-
-
-        if (!ciudadesDisponibles.contains(randomCiudad)) {
-            randomCiudad = ciudadesDisponibles.stream().findFirst().get();
-        }
-        if (!profesionesDisponibles.contains(randomProfesion)) {
-            randomProfesion = profesionesDisponibles.stream().findFirst().get();
-        }
-
+        randomCiudad = getElementoNoRepetido(ciudadesDisponibles, ThreadLocalRandom.current().nextInt(min, max + 1));
+        randomProfesion = getElementoNoRepetido(profesionesDisponibles, ThreadLocalRandom.current().nextInt(min, max + 1));
 
         ia.setRC(randomCiudad);
         ia.setRP(randomProfesion);
-
-        ciudadesDisponibles.remove(new Integer(randomCiudad));
-        profesionesDisponibles.remove(new Integer(randomProfesion));
 
 //        try {
 //            String generada = "LC:" + this.getLC() + " LP:" + this.getLP() +
@@ -242,6 +196,34 @@ public class IndividuoAcertijo extends Individuo {
         return ia;
     }
 
+    private ArrayList<Integer> inicializoProfesionesDisponibles() {
+        ArrayList<Integer> profesionesDisponibles = new ArrayList();
+        profesionesDisponibles.add(1);
+        profesionesDisponibles.add(2);
+        profesionesDisponibles.add(3);
+        profesionesDisponibles.add(4);
+        return profesionesDisponibles;
+    }
+
+    private ArrayList<Integer> inicializoCiudadesDisponibles() {
+        ArrayList<Integer> ciudadesDisponibles = new ArrayList();
+        ciudadesDisponibles.add(1);
+        ciudadesDisponibles.add(2);
+        ciudadesDisponibles.add(3);
+        ciudadesDisponibles.add(4);
+        return ciudadesDisponibles;
+    }
+
+    private Integer getElementoNoRepetido(ArrayList<Integer> list, Integer item) {
+        Integer value;
+        if (!list.contains(item)) {
+            value = list.stream().findFirst().get();
+        }
+        value = item;
+        list.remove(new Integer(value));
+
+        return value;
+    }
 
     @Override
     public String toString() {

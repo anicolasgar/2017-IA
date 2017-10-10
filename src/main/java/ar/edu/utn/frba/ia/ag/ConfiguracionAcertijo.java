@@ -12,7 +12,7 @@ public class ConfiguracionAcertijo extends Configuracion {
 
     public ConfiguracionAcertijo() {
 
-        super(new CantidadDeCiclos(99L), // criterio de paro
+        super(new CantidadDeCiclos(1199L), // criterio de paro
                 999, // cantIndividuosIniciales
                 new Torneo(), // seleccion
                 new Simple(), // cruzamiento
