@@ -115,8 +115,8 @@ public class IndividuoAcertijo extends Individuo {
                         || (this.getKC() == 3 && this.getKP() == 4)
                         || (this.getRC() == 3 && this.getRP() == 4)
                         || (this.getLC() == 3 && this.getLP() == 4)
-        ) ? 2 : -10;
-        double regla6 = this.getLP() == 1 || this.getKP() == 1 || this.getRP() == 1 || this.getNP() == 1 ? 1 : -15;
+        ) ? 2 : -5;
+        double regla6 = this.getLP() == 1 || this.getKP() == 1 || this.getRP() == 1 || this.getNP() == 1 ? 1 : -5;
         double regla7 = this.getLC() == this.getKC()
                 || this.getLC() == this.getRC()
                 || this.getLC() == this.getNC()
@@ -215,14 +215,18 @@ public class IndividuoAcertijo extends Individuo {
     }
 
     private Integer getElementoNoRepetido(ArrayList<Integer> list, Integer item) {
-        Integer value;
-        if (!list.contains(item)) {
-            value = list.stream().findFirst().get();
-        }
-        value = item;
-        list.remove(new Integer(value));
+//        Integer value;
+//        if (!list.contains(item)) {
+//            value = list.stream().findFirst().get();
+//        } else {
+//            value = item;
+//        }
+//
+//        list.remove(new Integer(value));
+//
+//        return value;
 
-        return value;
+        return item;
     }
 
     @Override
